@@ -21,7 +21,7 @@ Gender char(1) not null,
 PhoneNo bigint not null,
 Address varchar(500) not null,
 StartDate date not null,
-CompanyId int not null
+CompanyId int not null foreign key references company(CompanyId)
 );
 --Adding data to employee table
 insert into employee values
@@ -34,7 +34,7 @@ select * from employee;
 
 --Creating table payroll
 create table payroll
-(EmpId int not null primary key,
+(EmpId int not null primary key references employee(EmpId),
 BasicPay float not null,
 Deductions float not null,
 TaxablePay float not null,
@@ -60,8 +60,8 @@ insert into department values
 
 --Creating new table employee_dept to reduce many to many relation between employee and department
 create table employee_dept
-(EmpId int not null,
-DeptId int not null);
+(EmpId int not null foreign key references employee(EmpId),
+DeptId int not null foreign key references department(DeptId));
 --Adding Teressa details into table
 insert into employee_dept values
 (1,102),
